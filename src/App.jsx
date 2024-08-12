@@ -1,35 +1,46 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { Link, Routes, Route } from 'react-router-dom';
+import Profile from './components/student/Profile';
+import Grades from './components/student/Grades';
+import Attendance from './components/student/Attendance';
+import Progress from './components/student/Progress';
+import AssignedTeachers from './components/student/AssignedTeachers';
 
-function App() {
-  const [count, setCount] = useState(0)
-
+const StudentDashboard = () => {
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+    <div className="flex">
+      <aside className="w-1/4 bg-purple-700 text-white h-screen p-4">
+        <nav>
+          <ul className="space-y-4">
+            <li>
+              <Link to="profile" className="hover:text-gray-300">Profile</Link>
+            </li>
+            <li>
+              <Link to="grades" className="hover:text-gray-300">Grades</Link>
+            </li>
+            <li>
+              <Link to="attendance" className="hover:text-gray-300">Attendance</Link>
+            </li>
+            <li>
+              <Link to="progress" className="hover:text-gray-300">Progress</Link>
+            </li>
+            <li>
+              <Link to="assigned-teachers" className="hover:text-gray-300">Assigned Teachers</Link>
+            </li>
+          </ul>
+        </nav>
+      </aside>
+      <main className="w-3/4 p-4">
+        <Routes>
+          <Route path="profile" element={<Profile />} />
+          <Route path="grades" element={<Grades />} />
+          <Route path="attendance" element={<Attendance />} />
+          <Route path="progress" element={<Progress />} />
+          <Route path="assigned-teachers" element={<AssignedTeachers />} />
+        </Routes>
+      </main>
+    </div>
+  );
+};
 
-export default App
+export default StudentDashboard;
+
