@@ -36,26 +36,24 @@ const Profile = () => {
           {profile ? (
             <>
               <tr>
-                <td className="border border-gray-300 px-4 py-2">Profile Image</td>
-                <td className="border border-gray-300 px-4 py-2">
-                  <img
-                    src={profile.profile_image}
-                    alt="Profile"
-                    className="h-16 w-16 rounded-full object-cover"
-                  />
-                </td>
+                <td className="border border-gray-300 px-4 py-2">User ID</td>
+                <td className="border border-gray-300 px-4 py-2">{profile.user_id}</td>
               </tr>
               <tr>
-                <td className="border border-gray-300 px-4 py-2">First Name</td>
-                <td className="border border-gray-300 px-4 py-2">{profile.first_name}</td>
+                <td className="border border-gray-300 px-4 py-2">Name</td>
+                <td className="border border-gray-300 px-4 py-2">{profile.name}</td>
               </tr>
               <tr>
-                <td className="border border-gray-300 px-4 py-2">Last Name</td>
-                <td className="border border-gray-300 px-4 py-2">{profile.last_name}</td>
+                <td className="border border-gray-300 px-4 py-2">Enrollment Date</td>
+                <td className="border border-gray-300 px-4 py-2">{profile.enrollment_date}</td>
               </tr>
               <tr>
                 <td className="border border-gray-300 px-4 py-2">Date of Birth</td>
                 <td className="border border-gray-300 px-4 py-2">{profile.date_of_birth}</td>
+              </tr>
+              <tr>
+                <td className="border border-gray-300 px-4 py-2">Gender</td>
+                <td className="border border-gray-300 px-4 py-2">{profile.gender}</td>
               </tr>
               <tr>
                 <td className="border border-gray-300 px-4 py-2">Phone Number</td>
@@ -80,3 +78,4 @@ const Profile = () => {
 };
 
 export default Profile;
+
