@@ -115,8 +115,10 @@ import HomePage from './pages/HomePage';
 import AdminDashboard from './pages/AdminDashboard';
 import TeacherDashboard from './pages/TeacherDashboard';
 import StudentDashboard from './pages/StudentDashboard';
+import LoginPage from './pages/LoginPage';
 import Navbar from './components/Navbar';
-
+import AboutPage from './pages/AboutPage';
+import ContactPage from './pages/ContactPage';
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
