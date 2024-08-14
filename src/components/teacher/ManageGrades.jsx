@@ -1,28 +1,38 @@
 import React, { useState, useEffect } from 'react';
-import { useFormik } from 'formik'; 
+import { useFormik } from 'formik';
 
-const ManageGrades = () => {
+const ManageGrades = ()=> {
   const [courses, setCourses] = useState([]);
   const [students, setStudents] = useState([]);
   const [selectedCourse, setSelectedCourse] = useState(null);
 
   useEffect(() => {
-    fetch('/api/teacher/courses')
+    fetch('http://127.0.0.1:5555/courses')
       .then(response => response.json())
-      .then(data => setCourses(data));
+      .then(data => {
+        if (data && data.courses && Array.isArray(data.courses)) {
+          setCourses(data.courses);
+        } else {
+          console.error('Invalid response data:', data);
+        }
+      });
   }, []);
 
   const handleCourseSelect = (courseId) => {
     setSelectedCourse(courseId);
-    fetch(`/api/teacher/courses/${courseId}/students`)
+    fetch(`http://127.0.0.1:5555/courses/${courseId}/students`)
       .then(response => response.json())
       .then(data => {
-        setStudents(data);
-        const initialGrades = data.reduce((acc, student) => {
-          acc[student.id] = student.grade || '';
-          return acc;
-        }, {});
-        formik.setValues({ grades: initialGrades });
+        if (data && data.students && Array.isArray(data.students)) {
+          setStudents(data.students);
+          const initialGrades = data.students.reduce((acc, student) => {
+            acc[student.id] = student.grade || '';
+            return acc;
+          }, {});
+          formik.setValues({ grades: initialGrades });
+        } else {
+          console.error('Invalid response data:', data);
+        }
       });
   };
 
@@ -32,7 +42,7 @@ const ManageGrades = () => {
     },
     onSubmit: (values) => {
       Object.entries(values.grades).forEach(([studentId, grade]) => {
-        fetch(`/api/teacher/students/${studentId}/grades`, {
+        fetch(`http://127.0.0.1:5555/students/${studentId}/grades`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -52,7 +62,7 @@ const ManageGrades = () => {
           onChange={(e) => handleCourseSelect(e.target.value)}
         >
           <option value="">Select a Course</option>
-          {courses.map(course => (
+          {courses.map((course) => (
             <option key={course.id} value={course.id}>
               {course.name}
             </option>
@@ -72,7 +82,7 @@ const ManageGrades = () => {
               </tr>
             </thead>
             <tbody>
-              {students.map(student => (
+              {students.map((student) => (
                 <tr key={student.id} className="border-t">
                   <td className="py-2 px-4 border-r">{student.id}</td>
                   <td className="py-2 px-4 border-r">{student.name}</td>
